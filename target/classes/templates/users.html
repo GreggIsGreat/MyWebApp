@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h1>Manage Users!!!!</h1>
+    <div>
+        <a class="h3" th:href="@{/users/new}">Add Users</a>
+        <br>
+        <div th:if="${message}" class="alert-success text-center">
+            [[${message}]]
+        </div>
+        <hr>
+        <br>
+        <form th:action="@{/users}" th:value="${keyword}" method="get">Find user:
+            <input id="textSearch" type="text" name="keyword">
+            <button type="submit" class="btn btn-primary m-2">Search</button>
+            <button type="submit" class="btn btn-secondary">Clear</button>
+        </form>
+<!--        <form th:action="@{/users}">-->
+<!--            Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />-->
+<!--            &nbsp;-->
+<!--            <input type="submit" value="Search" />-->
+<!--            &nbsp;-->
+<!--            <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />-->
+<!--        </form>-->
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>E-Mail</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Enabled Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${listUsers}">
+                <tr>
+                    <td>[[${user.id}]]</td>
+                    <td>[[${user.email}]]</td>
+                    <td>[[${user.firstName}]]</td>
+                    <td>[[${user.lastName}]]</td>
+                    <td>[[${user.enabled}]]</td>
+                    <td>
+                        <a class="h4 mr-3" th:href="@{'users/edit/' + ${user.id}}">Edit</a>
+                        <a class="h4" th:href="@{'users/delete/' + ${user.id}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<footer class="text-right m-4">
+    <h5>Author: Thabang Teddy</h5>
+    <h5>Contact me: rttteddy@gmail.com</h5>
+</footer>
+</html>
